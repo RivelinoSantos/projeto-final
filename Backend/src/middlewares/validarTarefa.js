@@ -1,21 +1,34 @@
 export function validarTarefas(req, res, next) {
 
-  const { titulo, status } = req.body
+  const { titulo, concluida } = req.body;
 
-  if (!titulo || typeof titulo !=='string' || titulo.trim() === '') {
-    return res.status(422).json({
-      erro:"O título é obrigatório e deve ser uma string válida." 
-    })
-  }
-  if (status) {
-    const statusValidos = ['pendente', 'em andamento', 'concluido']
-    if (!statusValidos.includes(status)) {
+  // Se vier titulo, valida
+  if (titulo !== undefined) {
+    if (
+      typeof titulo !== "string" ||
+      titulo.trim() === ""
+    ) {
       return res.status(422).json({
-        erro: "Status inválido. Use: pendente, em andamento, ou concluido."
-      })
+        erro: "O título deve ser uma string válida."
+      });
     }
   }
 
-  next()
+  // Se vier concluida, valida
+  if (concluida !== undefined) {
+    if (typeof concluida !== "boolean") {
+      return res.status(422).json({
+        erro: "O campo concluida deve ser true ou false."
+      });
+    }
+  }
 
+  // No POST, exige titulo obrigatório
+  if (req.method === "POST" && !titulo) {
+    return res.status(422).json({
+      erro: "O título é obrigatório."
+    });
+  }
+
+  next();
 }
