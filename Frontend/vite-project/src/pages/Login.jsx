@@ -1,10 +1,11 @@
 import { useState } from "react";
+import axios from "axios"
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
     if (!email || !senha) {
@@ -12,7 +13,21 @@ export default function Login() {
       return;
     }
 
-    console.log("Login:", email, senha);
+   try {
+  const res = await axios.post("http://localhost:3000/login", {
+    email,
+    senha
+  });
+  
+localStorage.setItem("token", res.data.token);
+
+  alert("Login realizado com sucesso");
+
+  console.log(res.data);
+
+} catch (error) {
+  alert(error.response?.data?.erro || "Erro ao fazer login");
+}
   }
 
   return (
