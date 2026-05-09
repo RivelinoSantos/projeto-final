@@ -1,57 +1,75 @@
-import  User from "../models/User.js"
-import bcrypt from "bcrypt"
+import User from "../models/User.js";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-export const register = async (req ,res) => {
+export const register = async (req, res) => {
 
-    try {
-      const {nome , email , senha} = req.body
+  try {
 
-      const senhaHash = await bcrypt.hash(senha, 10)
+    const { nome, email, password } = req.body;
 
-      const usuario = await User.create({
-      
+    const senhaHash = await bcrypt.hash(password, 10);
+
+    const usuario = await User.create({
+
       nome,
       email,
-      senha:senhaHash 
-     })
+      password: senhaHash
 
-     res.status(201).json(usuario)
-  } catch (error){
-   
-     res.status(400).json({ erro: error.message });
+    });
+
+    res.status(201).json(usuario);
+
+  } catch (error) {
+
+    res.status(400).json({
+      erro: error.message
+    });
+
   }
-}
+};
 
 export const login = async (req, res) => {
   try {
-    const { email, senha } = req.body;
+
+    const { email, password } = req.body;
 
     const usuario = await User.findOne({ email });
 
     if (!usuario) {
-      return res.status(404).json({ erro: "Usuário não encontrado" });
+      return res.status(404).json({
+        erro: "Usuário não encontrado"
+      });
     }
 
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
+    const senhaValida = await bcrypt.compare(
+      password,
+      usuario.password
+    );
 
     if (!senhaValida) {
-      return res.status(401).json({ erro: "Senha inválida" });
+      return res.status(401).json({
+        erro: "Senha inválida"
+      });
     }
-    const token = jwt.sign(
-  { id: usuario._id },
-  "segredo_super_secreto",
-  { expiresIn: "1d" }
-);
 
-  res.json({
-  mensagem: "Login realizado com sucesso",
-  token,
-  usuario
-});
+    const token = jwt.sign(
+      { id: usuario._id },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
+    );
+
+    res.json({
+      mensagem: "Login realizado com sucesso",
+      token,
+      usuario
+    });
 
   } catch (error) {
-    res.status(400).json({ erro: error.message });
-  }
-}
 
+    res.status(400).json({
+      erro: error.message
+    });
+
+  }
+};

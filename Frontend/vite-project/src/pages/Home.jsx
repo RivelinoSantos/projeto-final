@@ -23,7 +23,7 @@ export default function Home() {
 return (
  <div className="min-h-screen bg-slate-900 flex text-white">
     
-   <aside className="w-64 bg-slate-800 shadow-md p-6 border-r border-slate-700">
+   <aside className="w-64 bg-slate-800 shadow-md p-6 border-r border-slate-700 flex-col">
       <h1 className="text-3xl font-bold text-blue-600 mb-8">
         Vértice
       </h1>
@@ -49,6 +49,15 @@ return (
     <Settings size={18} />
     Configurações
   </button>
+<button
+  onClick={() => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  }}
+  className="mt-auto bg-red-500 hover:bg-red-600 transition text-white py-2 rounded-lg"
+>
+  Sair
+</button>
 
 </nav>
     </aside>

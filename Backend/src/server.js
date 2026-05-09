@@ -4,6 +4,9 @@ import tarefasRoutes from "./routes/tarefasRoutes.js"
 import { connectDB } from './database/connection.js'
 import cors from "cors"
 import authRoutes from "./routes/authRoutes.js"
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express()
 
@@ -16,7 +19,7 @@ app.use(tarefasRoutes)
 app.use(authRoutes)
 
 
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 

@@ -1,5 +1,9 @@
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 export default function App() {
-  return <Login />;
+
+  const token = localStorage.getItem("token");
+
+  return token ? <Home /> : <Login />;
 }

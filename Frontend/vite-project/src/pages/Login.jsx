@@ -1,33 +1,37 @@
 import { useState } from "react";
-import axios from "axios"
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
+
+   
 
   async function handleLogin(e) {
     e.preventDefault();
 
-    if (!email || !senha) {
+    if (!email || !password) {
       alert("Preencha todos os campos");
       return;
     }
 
-   try {
-  const res = await axios.post("http://localhost:3000/login", {
-    email,
-    senha
-  });
-  
-localStorage.setItem("token", res.data.token);
+    try {
+      const res = await axios.post("http://localhost:3000/login", {
+        email,
+        password
+      });
 
-  alert("Login realizado com sucesso");
+      localStorage.setItem("token", res.data.token);
 
-  console.log(res.data);
+  window.location.reload();
 
-} catch (error) {
-  alert(error.response?.data?.erro || "Erro ao fazer login");
-}
+      
+      console.log(res.data);
+
+    } catch (error) {
+      alert(error.response?.data?.erro || "Erro ao fazer login");
+    }
   }
 
   return (
@@ -57,11 +61,12 @@ localStorage.setItem("token", res.data.token);
             type="password"
             placeholder="Senha"
             className="w-full px-4 py-2 rounded-lg bg-slate-700 border border-slate-600 focus:outline-none"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           <button
+            type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 transition py-2 rounded-lg font-semibold"
           >
             Entrar
