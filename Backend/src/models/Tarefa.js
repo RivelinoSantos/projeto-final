@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const tarefaSchema = new mongoose.Schema({
+  
   titulo: {
     type: String,
     required: true
@@ -9,7 +10,14 @@ const tarefaSchema = new mongoose.Schema({
   concluida: {
     type: Boolean,
     default: false
+  },
+
+  usuario: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
   }
+
 });
 
 export default mongoose.model("Tarefa", tarefaSchema);

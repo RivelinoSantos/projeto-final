@@ -3,7 +3,9 @@ import Tarefa from "../models/Tarefa.js"
 
 export async function listarTarefas(req, res) {
   try {
-    const tarefas = await Tarefa.find()
+    const tarefas = await Tarefa.find({
+  usuario: req.user.id
+})
 
     res.json(tarefas)
 
@@ -37,6 +39,7 @@ export async function criarTarefas(req, res) {
     const novaTarefa = await Tarefa.create({
 
       titulo: req.body.titulo,
+      usuario: req.user.id
 
     })
 

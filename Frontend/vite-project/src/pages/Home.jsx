@@ -10,7 +10,18 @@ import {
 } from "lucide-react";
 
 export default function Home() {
+  const usuario = JSON.parse(
+  localStorage.getItem("usuario")
+);
   const { tarefas, criar, atualizar, deletar } = useTarefas();
+  const total = tarefas.data?.length || 0;
+
+const concluidas =
+  tarefas.data?.filter(t => t.concluida).length || 0;
+
+const pendentes =
+  tarefas.data?.filter(t => !t.concluida).length || 0;
+
   const [filtro, setFiltro] = useState("todas");
 
   if (tarefas.isLoading) {
@@ -23,55 +34,112 @@ export default function Home() {
 return (
  <div className="min-h-screen bg-slate-900 flex text-white">
     
-   <aside className="w-64 bg-slate-800 shadow-md p-6 border-r border-slate-700 flex-col">
-      <h1 className="text-3xl font-bold text-blue-600 mb-8">
-        Vértice
-      </h1>
+   <aside className="w-72 bg-slate-950 border-r border-slate-800 p-6 flex flex-col">
+      <h1 className="text-4xl font-black text-white mb-10 tracking-tight">
+  Vértice
+</h1>
 
-      <nav className="space-y-3">
+      <div className="flex items-center gap-3 mb-8">
 
-  <button className="flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg bg-blue-100 text-blue-700">
-    <LayoutDashboard size={18} />
-    Hoje
-  </button>
+  <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg">
+    {usuario.nome.charAt(0).toUpperCase()}
+  </div>
 
-  <button className="flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100">
-    <Clock size={18} />
-    Tarefas
-  </button>
+  <div>
+    <p className="font-semibold text-white">
+      {usuario.nome}
+    </p>
 
-  <button className="flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100">
-    <CheckCircle size={18} />
-    Concluídas
-  </button>
+    <p className="text-sm text-slate-400">
+      Usuário ativo
+    </p>
+  </div>
 
-  <button className="flex items-center gap-3 w-full text-left px-4 py-3 rounded-lg hover:bg-gray-100">
-    <Settings size={18} />
-    Configurações
-  </button>
+</div>
+
+  <nav className="space-y-3">
+
+<button className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/20 transition">
+  <LayoutDashboard size={18} />
+  Hoje
+</button>
+
+ <button className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition">
+  <Clock size={18} />
+  Tarefas
+</button>
+
+ <button className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition">
+  <CheckCircle size={18} />
+  Concluídas
+</button>
+  <button className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition">
+  <Settings size={18} />
+  Configurações
+</button>
+
 <button
   onClick={() => {
     localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
     window.location.reload();
   }}
-  className="mt-auto bg-red-500 hover:bg-red-600 transition text-white py-2 rounded-lg"
+  className="mt-auto bg-red-500/20 hover:bg-red-500/30 text-red-400 py-3 rounded-xl transition font-semibold"
 >
   Sair
 </button>
-
 </nav>
     </aside>
 
     {/* CONTEÚDO */}
     <main className="flex-1 p-10">
 
-     <h2 className="text-4xl font-bold text-white mb-2">
+      <h2 className="text-4xl font-bold text-white mb-2">
+  Olá, {usuario.nome + "!"}  🚀
+</h2>
+
+
+     <h6 className="text-4xl font-bold text-white mb-2">
         Seu centro de produtividade inteligente
-      </h2>
+      </h6>
 
      <p className="text-slate-300 mb-8">
         Organize tarefas. Alcance resultados.
       </p>
+
+      <div className="grid grid-cols-3 gap-4 mb-8">
+
+  <div className="bg-slate-800 p-5 rounded-2xl border border-slate-700">
+    <p className="text-slate-400 text-sm">
+      Total
+    </p>
+
+    <h3 className="text-3xl font-bold text-white mt-2">
+      {total}
+    </h3>
+  </div>
+
+  <div className="bg-slate-800 p-5 rounded-2xl border border-slate-700">
+    <p className="text-slate-400 text-sm">
+      Pendentes
+    </p>
+
+    <h3 className="text-3xl font-bold text-yellow-400 mt-2">
+      {pendentes}
+    </h3>
+  </div>
+
+  <div className="bg-slate-800 p-5 rounded-2xl border border-slate-700">
+    <p className="text-slate-400 text-sm">
+      Concluídas
+    </p>
+
+    <h3 className="text-3xl font-bold text-green-400 mt-2">
+      {concluidas}
+    </h3>
+  </div>
+
+</div>
 
      <div className="bg-slate-800 rounded-2xl shadow-md p-6 max-w-3xl border border-slate-700">
 
