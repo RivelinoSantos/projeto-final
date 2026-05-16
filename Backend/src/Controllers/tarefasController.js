@@ -85,7 +85,7 @@ export async function deletarTarefas(req, res) {
 
 
     res.json({ mensagem: "Tarefa deletada" })
-  } catch (erro) {
+  } catch (error) {
     res.status(400).json({ erro: error.message })
   }
 }
