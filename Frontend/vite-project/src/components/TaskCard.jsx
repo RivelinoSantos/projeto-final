@@ -3,13 +3,17 @@ export default function TaskCard({ tarefa, onToggle, onDelete }) {
     <div className="flex justify-between items-center bg-gray-50 border rounded-lg p-3 shadow-sm">
 
       <span
-        className={`${
-          tarefa.concluida
-            ? "line-through text-gray-400"
-            : "text-gray-800"
-        }`}
+        className={`${tarefa.concluida
+          ? "line-through text-gray-400"
+          : "text-gray-800"
+          }`}
       >
         {tarefa.titulo}
+        <p className="text-xs text-slate-400 mt-1">
+          Criada em {new Date(tarefa.createdAt).toLocaleString("pt-BR", {
+            timeZone: "America/Fortaleza"
+          })}
+        </p>
       </span>
 
       <div className="flex gap-2">

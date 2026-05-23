@@ -1,6 +1,6 @@
 // Utilitario: mostra o estado do banco (collections e quantidade de documentos).
 // Uso: npm run db:inspect   (rode com o servidor PARADO)
-import dotenv from "dotenv";
+/*import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { connectDB } from "./database/connection.js";
 import { stopMemoryServer } from "./database/memoryServer.js";
@@ -28,3 +28,4 @@ console.log("");
 await mongoose.connection.close();
 await stopMemoryServer();
 process.exit(0);
+*/

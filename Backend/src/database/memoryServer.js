@@ -1,4 +1,4 @@
-import { MongoMemoryServer } from "mongodb-memory-server";
+/* import { MongoMemoryServer } from "mongodb-memory-server";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -34,3 +34,4 @@ export async function stopMemoryServer() {
     mongoServer = null;
   }
 }
+*/

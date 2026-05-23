@@ -12,7 +12,7 @@ export default function TaskForm({ onCreate }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2">
       <input
         className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none"
         value={titulo}
@@ -20,7 +20,7 @@ export default function TaskForm({ onCreate }) {
         placeholder="Digite uma tarefa..."
       />
 
-      <button className="bg-blue-500 text-white px-4 rounded-lg">
+<button className="bg-blue-500 hover:bg-blue-600 transition text-white px-4 py-2 rounded-lg w-full md:w-auto">
         Adicionar
       </button>
     </form>
