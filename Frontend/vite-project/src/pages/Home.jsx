@@ -2,6 +2,7 @@ import { useState } from "react";
 import TaskForm from "../components/TaskForm";
 import TaskCard from "../components/TaskCard";
 import { useTarefas } from "../hooks/useTarefas";
+import { useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
   CheckCircle,
@@ -23,6 +24,8 @@ export default function Home() {
     tarefas.data?.filter(t => !t.concluida).length || 0;
 
   const [filtro, setFiltro] = useState("todas");
+
+  const navigate = useNavigate();
 
   if (tarefas.isLoading) {
     return (
@@ -77,45 +80,51 @@ export default function Home() {
 
         <nav className="space-y-3">
 
-         <button
-  onClick={() => setFiltro("todas")}
-  className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition ${
-    filtro === "todas"
-      ? "bg-blue-500/20 text-blue-400 border border-blue-500/20"
-      : "text-slate-300 hover:bg-slate-800"
-  }`}
->
-  <LayoutDashboard size={18} />
-  Hoje
-</button>
-         <button
-  onClick={() => setFiltro("pendentes")}
-  className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition ${
-    filtro === "pendentes"
-      ? "bg-blue-500/20 text-blue-400 border border-blue-500/20"
-      : "text-slate-300 hover:bg-slate-800"
-  }`}
->
-  <Clock size={18} />
-  Tarefas
-</button>
-
-        <button
-  onClick={() => setFiltro("concluidas")}
-  className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition ${
-    filtro === "concluidas"
-      ? "bg-blue-500/20 text-blue-400 border border-blue-500/20"
-      : "text-slate-300 hover:bg-slate-800"
-  }`}
->
-  <CheckCircle size={18} />
-  Concluídas
-</button>
-          <button className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition">
-            <Settings size={18} />
-            Configurações
+          <button
+            onClick={() => setFiltro("todas")}
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition ${filtro === "todas"
+              ? "bg-blue-500/20 text-blue-400 border border-blue-500/20"
+              : "text-slate-300 hover:bg-slate-800"
+              }`}
+          >
+            <LayoutDashboard size={18} />
+            Hoje
+          </button>
+          <button
+            onClick={() => setFiltro("pendentes")}
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition ${filtro === "pendentes"
+              ? "bg-blue-500/20 text-blue-400 border border-blue-500/20"
+              : "text-slate-300 hover:bg-slate-800"
+              }`}
+          >
+            <Clock size={18} />
+            Tarefas
           </button>
 
+          <button
+            onClick={() => setFiltro("concluidas")}
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition ${filtro === "concluidas"
+              ? "bg-blue-500/20 text-blue-400 border border-blue-500/20"
+              : "text-slate-300 hover:bg-slate-800"
+              }`}
+          >
+            <CheckCircle size={18} />
+            Concluídas
+          </button>
+          {usuario?.admin && (
+
+            <button
+              onClick={() => navigate("/admin")}
+              className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-800 transition"
+            >
+
+              <Settings size={18} />
+
+              Configurações
+
+            </button>
+
+          )}
           <button
             onClick={() => {
               localStorage.removeItem("token");

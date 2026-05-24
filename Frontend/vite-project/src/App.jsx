@@ -1,17 +1,48 @@
-import Login from "./pages/Login";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
+
 import Home from "./pages/Home";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import Login from "./pages/Login";
+import Admin from "./pages/Admin";
+import AdminRoute from "./components/AdminRoute";
 
 export default function App() {
 
   const token = localStorage.getItem("token");
 
- return (
-  <>
-    {token ? <Home /> : <Login />}
+  return (
 
-    <ToastContainer />
-  </>
-);
+    <BrowserRouter>
+
+      <Routes>
+
+        {!token ? (
+
+          <Route path="*" element={<Login />} />
+
+        ) : (
+
+          <>
+            <Route path="/" element={<Home />} />
+
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <Admin />
+                </AdminRoute>
+              }
+            />
+          </>
+
+        )}
+
+      </Routes>
+
+    </BrowserRouter>
+
+  );
 }

@@ -7,6 +7,7 @@ import { connectDB } from './database/connection.js'
 import cors from "cors"
 import authRoutes from "./routes/authRoutes.js"
 import dotenv from "dotenv";
+import adminRoutes from "./routes/adminRoutes.js";
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ connectDB()
 app.use(cors())
 app.use(tarefasRoutes)
 app.use(authRoutes)
-
+app.use(adminRoutes);
 
 const port = process.env.PORT || 3000
 
