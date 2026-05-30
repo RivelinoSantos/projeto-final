@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const tarefaSchema = new mongoose.Schema({
-  
+
   titulo: {
     type: String,
     required: true
@@ -12,12 +12,23 @@ const tarefaSchema = new mongoose.Schema({
     default: false
   },
 
+
+  categoria: {
+    type: String,
+    default: "Pessoal"
+  },
+
+  prioridade: {
+    type: String,
+    default: "Média"
+  },
+
   usuario: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
   },
-  }, {
+}, {
   timestamps: true
 
 

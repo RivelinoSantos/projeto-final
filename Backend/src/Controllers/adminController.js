@@ -21,6 +21,21 @@ export async function getDashboard(req, res) {
         concluida: false
       });
 
+    const tarefasPorCategoria =
+      await Tarefa.aggregate([
+        {
+          $match: {
+            categoria: { $ne: null }
+          }
+        },
+        {
+          $group: {
+            _id: "$categoria",
+            total: { $sum: 1 }
+          }
+        }
+      ]);
+
     res.json({
 
       totalUsuarios,
@@ -29,7 +44,9 @@ export async function getDashboard(req, res) {
 
       tarefasConcluidas,
 
-      tarefasPendentes
+      tarefasPendentes,
+
+      tarefasPorCategoria
 
     });
 

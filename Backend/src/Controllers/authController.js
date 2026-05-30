@@ -39,6 +39,8 @@ export const login = async (req, res) => {
     const emailFormatado = email.trim().toLowerCase();
 
     const usuario = await User.findOne({ email: emailFormatado, });
+  //  console.log("EMAIL RECEBIDO:", emailFormatado);
+//console.log("USUARIO ENCONTRADO:", usuario?.email);
 
     if (!usuario) {
       return res.status(404).json({
@@ -50,6 +52,7 @@ export const login = async (req, res) => {
       password,
       usuario.password
     );
+   // console.log("SENHA VALIDA:", senhaValida);
 
     if (!senhaValida) {
       return res.status(401).json({
