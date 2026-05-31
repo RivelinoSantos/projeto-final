@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import logo from "../assets/logo.jpg";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ export default function Login() {
           {
             nome,
             email,
-           password
+            password
           }
         );
 
@@ -74,10 +75,11 @@ export default function Login() {
     <div className="min-h-screen bg-slate-950 flex items-center justify-center text-white px-4">
 
       <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-10 shadow-2xl">
-
-        <h1 className="text-5xl font-black text-white text-center tracking-tight mb-3">
-          Vértice
-        </h1>
+        <img
+          src={logo}
+          alt="Vértice"
+          className="w-40 mx-auto mb-4"
+        />
 
         <p className="text-center text-slate-500 mb-8">
           Acesse sua conta

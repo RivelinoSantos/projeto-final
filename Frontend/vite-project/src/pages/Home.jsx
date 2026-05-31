@@ -3,6 +3,7 @@ import TaskForm from "../components/TaskForm";
 import TaskCard from "../components/TaskCard";
 import { useTarefas } from "../hooks/useTarefas";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.jpg";
 import {
   LayoutDashboard,
   CheckCircle,
@@ -55,30 +56,51 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col md:flex-row text-white">
 
-      <aside className="w-full md:w-72 bg-slate-950 border-r border-slate-800 p-6 flex flex-col">
-        <h1 className="text-4xl font-black text-white mb-10 tracking-tight">
-          Vértice
-        </h1>
+      <aside className="w-full md:w-72 md:h-screen bg-slate-950 border-r border-slate-800 p-6 flex flex-col shrink-0">
+        <div className="mb-8">
 
-        <div className="flex items-center gap-3 mb-8">
+         <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
 
-          <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold text-lg">
-            {usuario.nome.charAt(0).toUpperCase()}
+           <div className="flex-1 text-center md:text-left">
+             <img
+             
+               src={logo}
+               alt="Vértice"
+               className="w-40 object-contain mx-auto md:mx-0"
+               />
+
+              <p className="text-xs text-slate-400 mt-1">
+                Alcance o topo
+              </p>
+            </div>
+
+           <div className="hidden md:block h-12 w-px bg-slate-700 mx-3"></div>
+
+           <div className="flex items-center gap-2 justify-center md:justify-start">
+
+              <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center font-bold text-white shrink-0">
+                {usuario?.nome?.charAt(0).toUpperCase() || "U"}
+              </div>
+
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-white truncate">
+                  {usuario?.nome || "Usuário"}
+                </p>
+
+                <p className="text-xs text-slate-400">
+                  Usuário ativo
+                </p>
+              </div>
+
+            </div>
+
           </div>
 
-          <div>
-            <p className="font-semibold text-white">
-              {usuario.nome}
-            </p>
-
-            <p className="text-sm text-slate-400">
-              Usuário ativo
-            </p>
-          </div>
+          <hr className="border-slate-700 mt-6" />
 
         </div>
 
-        <nav className="space-y-3">
+        <nav className="flex flex-col flex-1">
 
           <button
             onClick={() => setFiltro("todas")}
@@ -124,7 +146,12 @@ export default function Home() {
 
             </button>
 
+            
+
           )}
+
+          <div className="flex-1"></div>
+
           <button
             onClick={() => {
               localStorage.removeItem("token");
@@ -139,14 +166,14 @@ export default function Home() {
       </aside>
 
       {/* CONTEÚDO */}
-      <main className="flex-1 p-4 md:p-10">
+      <main className="flex-1 p-4 md:p-10 md:h-screen md:overflow-y-auto">
 
         <h2 className="text-2xl md:text-4xl font-bold text-white mb-2">
           Olá, {usuario.nome + "!"}  🚀
         </h2>
 
 
-        <h6 className="text-4xl font-bold text-white mb-2">
+       <h6 className="text-2xl md:text-4xl font-bold text-white mb-2">
           Seu centro de produtividade inteligente
         </h6>
 
@@ -154,7 +181,7 @@ export default function Home() {
           Organize tarefas. Alcance resultados.
         </p>
 
-        <div className="grid grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
 
           <div className="bg-slate-800 rounded-2xl shadow-md p-6 w-full max-w-3xl border border-slate-700">
             <p className="text-slate-400 text-sm">
@@ -188,7 +215,7 @@ export default function Home() {
 
         </div>
 
-        <div className="bg-slate-800 rounded-2xl shadow-md p-6 max-w-3xl border border-slate-700">
+        <div className="bg-slate-800 rounded-2xl shadow-md p-6 border border-slate-700 max-w-5xl">
 
           <TaskForm onCreate={(data) => criar.mutate(data)} />
 
