@@ -16,7 +16,7 @@ export default function Tarefas() {
       const token = localStorage.getItem("token");
 
       const res = await axios.get(
-        "http://localhost:3000/tarefas",
+        "https://vertice-821h.onrender.com/tarefas",
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -37,7 +37,7 @@ export default function Tarefas() {
       const token = localStorage.getItem("token");
 
       await axios.post(
-        "http://localhost:3000/tarefas",
+        "https://vertice-821h.onrender.com/tarefas",
         {
           titulo: novaTarefa,
           status: "pendente"
@@ -70,7 +70,7 @@ export default function Tarefas() {
           : "pendente";
 
       await axios.put(
-        `http://localhost:3000/tarefas/${_id}`,
+        `https://vertice-821h.onrender.com/tarefas/${_id}`,
         {
           status: novoStatus
         },

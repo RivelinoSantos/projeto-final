@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logo from "../assets/logo.jpg";
@@ -25,8 +25,8 @@ export default function Login() {
     try {
       if (modoCadastro) {
 
-        await axios.post(
-          "http://localhost:3000/register",
+        await await api.post("/register", 
+          
           {
             nome,
             email,
@@ -44,7 +44,7 @@ export default function Login() {
 
         return;
       }
-      const res = await axios.post("http://localhost:3000/login", {
+      const res = await api.post("/login", {
         email,
         password
       });

@@ -35,7 +35,7 @@ export default function Admin() {
       try {
 
         const res = await axios.get(
-          "http://localhost:3000/admin",
+          "https://vertice-821h.onrender.com/admin",
           {
             headers: {
               Authorization: `Bearer ${token}`
